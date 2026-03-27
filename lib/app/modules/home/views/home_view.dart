@@ -155,7 +155,7 @@ class HomeView extends GetView<HomeController> {
             color: Colors.white10,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(Icons.notifications, color: Colors.white),
+          child: const Icon(Icons.notifications_active_outlined, color: Colors.white),
         ),
       ],
     );
