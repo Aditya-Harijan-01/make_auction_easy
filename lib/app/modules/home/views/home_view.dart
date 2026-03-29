@@ -1,10 +1,12 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart' show AnimatedNotchBottomBar, BottomBarItem;
 import 'package:dummy_app/app/modules/auction_screen/views/auction_screen_view.dart';
 import 'package:dummy_app/app/modules/rental_screen/views/rental_screen_view.dart';
 import 'package:dummy_app/app/modules/setting_screen/views/setting_screen_view.dart';
+import 'package:dummy_app/app/theme/app_colors.dart';
+import 'package:dummy_app/app/theme/app_text.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
-
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -14,7 +16,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0A0F1F),
+      backgroundColor: AppColors.primaryBg,
       bottomNavigationBar: _buildBottomNav(),
       body: SafeArea(
         child: Obx(() => _buildCurrentTab(controller.selectedIndex.value)),
@@ -39,71 +41,38 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildHomeTab() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           _buildBanner(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           _buildCoinsRow(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildSectionTitle("On-going auctions"),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   _buildAuctionList(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   _buildSectionTitle("Featured auctions"),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   _buildAuctionList(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   _buildSectionTitle("Premium auctions"),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   _buildAuctionList(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildPlaceholderTab({
-    required String title,
-    required String subtitle,
-    required IconData icon,
-  }) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 42, color: Colors.white70),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              subtitle,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white60, fontSize: 14),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -116,11 +85,11 @@ class HomeView extends GetView<HomeController> {
         Row(
           children: [
             Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
+              width: 70.w,
+              height: 70.w,
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: NetworkImage(
                     "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
                   ),
@@ -128,69 +97,56 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
-            const Column(
+            SizedBox(width: 10.w),
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Welcome,",
-                  style: TextStyle(color: Colors.white54, fontSize: 14),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  "Alex Jorda",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text("Welcome,", style: AppTextStyles.body),
+                SizedBox(height: 4.h),
+                Text("Alex Jorda", style: AppTextStyles.heading),
               ],
             ),
           ],
         ),
         Container(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(15.r),
           decoration: BoxDecoration(
-            color: Colors.white10,
-            borderRadius: BorderRadius.circular(12),
+            color: AppColors.cardBg,
+            borderRadius: BorderRadius.circular(15.r),
+            border: Border.all(color: AppColors.border),
           ),
-          child: const Icon(Icons.notifications_active_outlined, color: Colors.white),
+          child: const Icon(Icons.notifications_active_outlined,
+              color: Colors.white),
         ),
       ],
     );
   }
 
+  // 🔹 Banner
   Widget _buildBanner() {
     return Container(
-      height: 120,
+      height: 120.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
         gradient: const LinearGradient(
-          colors: [Color.fromARGB(255, 80, 113, 244), Color(0xFF3B5BDB)],
+          colors: [AppColors.secondary, AppColors.primary],
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Center(
-            child: Text(
-              "One Tap to Your\nNext Home.",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          Text(
+            "One Tap to Your\nNext Home.",
+            style: AppTextStyles.subHeading.copyWith(fontSize: 18.sp),
           ),
           ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.r),
+              bottomLeft: Radius.circular(20.r),
             ),
             child: Image.asset(
               'assets/images/home_text.png',
-              width: 150,
+              width: 150.w,
               fit: BoxFit.cover,
             ),
           ),
@@ -202,10 +158,10 @@ class HomeView extends GetView<HomeController> {
   // 🔹 Coins Row
   Widget _buildCoinsRow() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: Colors.white10,
-        borderRadius: BorderRadius.circular(16),
+        color: AppColors.cardBg,
+        borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -213,37 +169,24 @@ class HomeView extends GetView<HomeController> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Text(
-                "00",
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-              const SizedBox(width: 3),
-              const Text(
-                "/Sweep coins",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
+              Text("00", style: AppTextStyles.heading),
+              SizedBox(width: 3.w),
+              Text("/Sweep coins", style: AppTextStyles.body),
             ],
           ),
           Container(
+            padding: EdgeInsets.all(15.r),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 10, 18, 32),
-              borderRadius: BorderRadius.circular(20),
+              color: AppColors.primaryBg,
+              borderRadius: BorderRadius.circular(20.r),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                children: [
-                  const Text(
-                    "Get more coins",
-                    style: TextStyle(color: Colors.white70, fontSize: 18),
-                  ),
-                  const SizedBox(width: 4),
-                  const Icon(
-                    Icons.arrow_forward_rounded,
-                    color: Colors.white70,
-                  ),
-                ],
-              ),
+            child: Row(
+              children: [
+                Text("Get more coins", style: AppTextStyles.body),
+                SizedBox(width: 4.w),
+                const Icon(Icons.arrow_forward_rounded,
+                    color: Colors.white70),
+              ],
             ),
           ),
         ],
@@ -256,73 +199,47 @@ class HomeView extends GetView<HomeController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const Text(
-          "See all",
-          style: TextStyle(color: Colors.blueAccent, fontSize: 14),
-        ),
+        Text(title, style: AppTextStyles.subHeading),
+        Text("See all", style: AppTextStyles.link),
       ],
     );
   }
 
-  // 🔹 Auction Cards
+  // 🔹 Auction List
   Widget _buildAuctionList() {
     return SizedBox(
-      height: 300,
-      child: ListView(
+      height: 300.h,
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        children: [
-          _auctionCard(),
-          const SizedBox(width: 12),
-          _auctionCard(),
-          const SizedBox(width: 12),
-          _auctionCard(),
-          const SizedBox(width: 12),
-          _auctionCard(),
-          const SizedBox(width: 12),
-          _auctionCard(),
-          const SizedBox(width: 12),
-          _auctionCard(),
-          const SizedBox(width: 12),
-          _auctionCard(),
-          const SizedBox(width: 12),
-          _auctionCard(),
-        ],
+        itemBuilder: (_, __) => _auctionCard(),
+        separatorBuilder: (_, __) => SizedBox(width: 12.w),
+        itemCount: 6,
       ),
     );
   }
 
+  // 🔹 Auction Card
   Widget _auctionCard() {
     return Container(
-      width: 220,
+      width: 220.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white10,
+        borderRadius: BorderRadius.circular(20.r),
+        color: AppColors.cardBg,
       ),
       child: Stack(
         children: [
-          // Image
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             child: Image.network(
               "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
-              height: double.infinity,
-              width: double.infinity,
               fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
             ),
           ),
-
-          // Overlay
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
               gradient: LinearGradient(
                 colors: [
                   Colors.black.withValues(alpha: 0.1),
@@ -333,58 +250,20 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ),
-
-          // Content
           Positioned(
-            bottom: 12,
-            left: 12,
-            right: 12,
+            bottom: 12.h,
+            left: 12.w,
+            right: 12.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "Lord Villa",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4),
+              children: [
+                Text("Lord Villa", style: AppTextStyles.subHeading),
+                SizedBox(height: 4.h),
                 Text(
                   "1580 Garden Rd, Australia",
-                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                  style: AppTextStyles.small,
                 ),
               ],
-            ),
-          ),
-
-          // Top badge
-          Positioned(
-            top: 10,
-            left: 10,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: Colors.greenAccent,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  const Text(
-                    "Free",
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                ],
-              ),
             ),
           ),
         ],
@@ -395,15 +274,15 @@ class HomeView extends GetView<HomeController> {
   // 🔹 Bottom Navigation
   Widget _buildBottomNav() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
       child: AnimatedNotchBottomBar(
         notchBottomBarController: controller.notchBottomBarController,
-        kIconSize: 22,
-        kBottomRadius: 16,
-        notchColor: const Color(0xFF3B5BDB),
-        color: const Color(0xFF11192B),
+        kIconSize: 22.sp,
+        kBottomRadius: 16.r,
+        notchColor: AppColors.primary,
+        color: AppColors.secondaryBg,
         showLabel: true,
-        itemLabelStyle: const TextStyle(color: Colors.white60, fontSize: 12),
+        itemLabelStyle: AppTextStyles.small,
         bottomBarItems: const [
           BottomBarItem(
             inActiveItem: Icon(Icons.home_rounded, color: Colors.white54),
@@ -411,21 +290,24 @@ class HomeView extends GetView<HomeController> {
             itemLabel: 'Home',
           ),
           BottomBarItem(
-            inActiveItem: Icon(Icons.bar_chart_rounded, color: Colors.white54),
-            activeItem: Icon(Icons.bar_chart_rounded, color: Colors.white),
+            inActiveItem:
+                Icon(Icons.bar_chart_rounded, color: Colors.white54),
+            activeItem:
+                Icon(Icons.bar_chart_rounded, color: Colors.white),
             itemLabel: 'Auction',
           ),
           BottomBarItem(
-            inActiveItem: Icon(Icons.menu_book_rounded, color: Colors.white54),
-            activeItem: Icon(Icons.menu_book_rounded, color: Colors.white),
+            inActiveItem:
+                Icon(Icons.menu_book_rounded, color: Colors.white54),
+            activeItem:
+                Icon(Icons.menu_book_rounded, color: Colors.white),
             itemLabel: 'Rental',
           ),
           BottomBarItem(
-            inActiveItem: Icon(
-              Icons.shopping_cart_rounded,
-              color: Colors.white54,
-            ),
-            activeItem: Icon(Icons.shopping_cart_rounded, color: Colors.white),
+            inActiveItem:
+                Icon(Icons.shopping_cart_rounded, color: Colors.white54),
+            activeItem:
+                Icon(Icons.shopping_cart_rounded, color: Colors.white),
             itemLabel: 'Cart',
           ),
         ],

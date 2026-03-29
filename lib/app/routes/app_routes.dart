@@ -7,6 +7,7 @@ abstract class Routes {
   static const SETTING_SCREEN = _Paths.SETTING_SCREEN;
   static const AUCTION_SCREEN = _Paths.AUCTION_SCREEN;
   static const RENTAL_SCREEN = _Paths.RENTAL_SCREEN;
+  static const AUCTION_DETAIL_SCREEN = _Paths.AUCTION_DETAIL_SCREEN;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const SETTING_SCREEN = '/setting-screen';
   static const AUCTION_SCREEN = '/auction-screen';
   static const RENTAL_SCREEN = '/rental-screen';
+  static const AUCTION_DETAIL_SCREEN = '/auction-detail-screen';
 }

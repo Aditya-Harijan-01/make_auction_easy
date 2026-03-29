@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/auction_detail_screen/bindings/auction_detail_screen_binding.dart';
+import '../modules/auction_detail_screen/views/auction_detail_screen_view.dart';
 import '../modules/auction_screen/bindings/auction_screen_binding.dart';
 import '../modules/auction_screen/views/auction_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.RENTAL_SCREEN,
       page: () => const RentalScreenView(),
       binding: RentalScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUCTION_DETAIL_SCREEN,
+      page: () => const AuctionDetailScreenView(),
+      binding: AuctionDetailScreenBinding(),
     ),
   ];
 }
