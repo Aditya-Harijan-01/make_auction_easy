@@ -6,6 +6,8 @@ import '../modules/auction_screen/bindings/auction_screen_binding.dart';
 import '../modules/auction_screen/views/auction_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/rental_detail_screen/bindings/rental_detail_screen_binding.dart';
+import '../modules/rental_detail_screen/views/rental_detail_screen_view.dart';
 import '../modules/rental_screen/bindings/rental_screen_binding.dart';
 import '../modules/rental_screen/views/rental_screen_view.dart';
 import '../modules/setting_screen/bindings/setting_screen_binding.dart';
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.AUCTION_DETAIL_SCREEN,
       page: () => const AuctionDetailScreenView(),
       binding: AuctionDetailScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.RENTAL_DETAIL_SCREEN,
+      page: () => const RentalDetailScreenView(),
+      binding: RentalDetailScreenBinding(),
     ),
   ];
 }

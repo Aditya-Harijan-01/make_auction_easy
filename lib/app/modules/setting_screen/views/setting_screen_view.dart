@@ -100,7 +100,7 @@ class SettingScreenView extends GetView<SettingScreenController> {
         children: [
           const CircleAvatar(
             radius: 28,
-            backgroundImage: AssetImage("assets/images/user1.jpg"),
+            backgroundImage: AssetImage("assets/images/house.webp"),
           ),
           const SizedBox(width: 12),
           const Expanded(

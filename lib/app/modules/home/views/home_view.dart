@@ -305,10 +305,10 @@ class HomeView extends GetView<HomeController> {
           ),
           BottomBarItem(
             inActiveItem:
-                Icon(Icons.shopping_cart_rounded, color: Colors.white54),
+                Icon(Icons.settings, color: Colors.white54),
             activeItem:
-                Icon(Icons.shopping_cart_rounded, color: Colors.white),
-            itemLabel: 'Cart',
+                Icon(Icons.settings, color: Colors.white),
+            itemLabel: 'Settings',
           ),
         ],
         onTap: controller.onBottomNavTap,

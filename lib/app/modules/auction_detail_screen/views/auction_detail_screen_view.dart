@@ -28,7 +28,7 @@ class AuctionDetailScreenView extends GetView<AuctionDetailScreenController> {
       height: 300,
       width: double.infinity,
       child: Image.asset(
-        "assets/images/house1.jpg",
+        "assets/images/house.webp",
         fit: BoxFit.cover,
       ),
     );
@@ -158,12 +158,12 @@ class AuctionDetailScreenView extends GetView<AuctionDetailScreenController> {
       children: [
         const CircleAvatar(
           radius: 14,
-          backgroundImage: AssetImage("assets/images/user1.jpg"),
+          backgroundImage: AssetImage("assets/images/house.webp"),
         ),
         const SizedBox(width: 6),
         const CircleAvatar(
           radius: 14,
-          backgroundImage: AssetImage("assets/images/user2.jpg"),
+          backgroundImage: AssetImage("assets/images/house2.webp"),
         ),
         const SizedBox(width: 6),
         Container(

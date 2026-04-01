@@ -25,10 +25,13 @@ class AuctionScreenView extends GetView<AuctionScreenController> {
                   AuctionCard(),
                   SizedBox(height: 20),
                   AuctionCard(isSecond: true),
+                  SizedBox(height: 20,),
+                  AuctionCard(),
+                  SizedBox(height: 20),
+                  AuctionCard(isSecond: true),
                 ],
               ),
             ),
-            _buildBottomNav(),
           ],
         ),
       ),
@@ -73,42 +76,19 @@ class AuctionScreenView extends GetView<AuctionScreenController> {
   Widget _buildFilters() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: const [
-          FilterChipWidget(title: "All", isSelected: true),
-          SizedBox(width: 10),
-          FilterChipWidget(title: "Nearby"),
-          SizedBox(width: 10),
-          FilterChipWidget(title: "Upcoming"),
-        ],
-      ),
-    );
-  }
-
-  // 🔹 Bottom Nav
-  Widget _buildBottomNav() {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: const Color(0xFF111827),
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Icon(Icons.home_outlined, color: Colors.white.withOpacity(0.6)),
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(Icons.gavel, color: Colors.white),
-          ),
-          Icon(Icons.article_outlined, color: Colors.white.withOpacity(0.6)),
-          Icon(Icons.person_outline, color: Colors.white.withOpacity(0.6)),
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: const [
+            FilterChipWidget(title: "All", isSelected: true),
+            SizedBox(width: 10),
+            FilterChipWidget(title: "On-Going"),
+            SizedBox(width: 10),
+            FilterChipWidget(title: "Up-Coming"),
+            SizedBox(width: 10),
+            FilterChipWidget(title: "Scheduled"),
+          ],
+        ),
       ),
     );
   }
@@ -156,8 +136,8 @@ class AuctionCard extends StatelessWidget {
         image: DecorationImage(
           image: AssetImage(
             isSecond
-                ? "assets/images/house2.jpg"
-                : "assets/images/house1.jpg",
+                ? "assets/images/house2.webp"
+                : "assets/images/house.webp",
           ),
           fit: BoxFit.cover,
         ),
@@ -215,12 +195,12 @@ class AuctionCard extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 12,
-                  backgroundImage: AssetImage("assets/images/user1.jpg"),
+                  backgroundImage: AssetImage("assets/images/house.webp"),
                 ),
                 const SizedBox(width: 6),
                 const CircleAvatar(
                   radius: 12,
-                  backgroundImage: AssetImage("assets/images/user2.jpg"),
+                  backgroundImage: AssetImage("assets/images/house2.webp"),
                 ),
                 const SizedBox(width: 6),
                 Container(
