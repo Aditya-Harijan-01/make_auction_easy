@@ -211,8 +211,8 @@ class HomeView extends GetView<HomeController> {
       height: 300.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (_, __) => _auctionCard(),
-        separatorBuilder: (_, __) => SizedBox(width: 12.w),
+        itemBuilder: (_, _) => _auctionCard(),
+        separatorBuilder: (_, _) => SizedBox(width: 12.w),
         itemCount: 6,
       ),
     );
@@ -273,46 +273,43 @@ class HomeView extends GetView<HomeController> {
 
   // 🔹 Bottom Navigation
   Widget _buildBottomNav() {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
-      child: AnimatedNotchBottomBar(
-        notchBottomBarController: controller.notchBottomBarController,
-        kIconSize: 22.sp,
-        kBottomRadius: 16.r,
-        notchColor: AppColors.primary,
-        color: AppColors.secondaryBg,
-        showLabel: true,
-        itemLabelStyle: AppTextStyles.small,
-        bottomBarItems: const [
-          BottomBarItem(
-            inActiveItem: Icon(Icons.home_rounded, color: Colors.white54),
-            activeItem: Icon(Icons.home_rounded, color: Colors.white),
-            itemLabel: 'Home',
-          ),
-          BottomBarItem(
-            inActiveItem:
-                Icon(Icons.bar_chart_rounded, color: Colors.white54),
-            activeItem:
-                Icon(Icons.bar_chart_rounded, color: Colors.white),
-            itemLabel: 'Auction',
-          ),
-          BottomBarItem(
-            inActiveItem:
-                Icon(Icons.menu_book_rounded, color: Colors.white54),
-            activeItem:
-                Icon(Icons.menu_book_rounded, color: Colors.white),
-            itemLabel: 'Rental',
-          ),
-          BottomBarItem(
-            inActiveItem:
-                Icon(Icons.settings, color: Colors.white54),
-            activeItem:
-                Icon(Icons.settings, color: Colors.white),
-            itemLabel: 'Settings',
-          ),
-        ],
-        onTap: controller.onBottomNavTap,
-      ),
+    return AnimatedNotchBottomBar(
+      notchBottomBarController: controller.notchBottomBarController,
+      kIconSize: 20.sp,
+      kBottomRadius: 8.r,
+      notchColor: AppColors.primary,
+      color: AppColors.secondaryBg,
+      showLabel: false,
+      itemLabelStyle: AppTextStyles.small,
+      bottomBarItems: const [
+        BottomBarItem(
+          inActiveItem: Icon(Icons.home_rounded, color: Colors.white54),
+          activeItem: Icon(Icons.home_rounded, color: Colors.white),
+          itemLabel: 'Home',
+        ),
+        BottomBarItem(
+          inActiveItem:
+              Icon(Icons.bar_chart_rounded, color: Colors.white54),
+          activeItem:
+              Icon(Icons.bar_chart_rounded, color: Colors.white),
+          itemLabel: 'Auction',
+        ),
+        BottomBarItem(
+          inActiveItem:
+              Icon(Icons.menu_book_rounded, color: Colors.white54),
+          activeItem:
+              Icon(Icons.menu_book_rounded, color: Colors.white),
+          itemLabel: 'Rental',
+        ),
+        BottomBarItem(
+          inActiveItem:
+              Icon(Icons.settings, color: Colors.white54),
+          activeItem:
+              Icon(Icons.settings, color: Colors.white),
+          itemLabel: 'Settings',
+        ),
+      ],
+      onTap: controller.onBottomNavTap,
     );
   }
 }
