@@ -48,8 +48,8 @@ class HomeView extends GetView<HomeController> {
           _buildHeader(),
           SizedBox(height: 20.h),
           _buildBanner(),
-          SizedBox(height: 20.h),
-          _buildCoinsRow(),
+          !controller.premium.value ? SizedBox(height: 20.h) : SizedBox.shrink(),
+          !controller.premium.value ? _buildCoinsRow() : SizedBox.shrink(),
           SizedBox(height: 20.h),
           Expanded(
             child: SingleChildScrollView(
