@@ -16,7 +16,6 @@ class HomeController extends GetxController {
   void onBottomNavTap(int index) {
     selectedIndex.value = index;
 
-    /// optional (sync notch controller)
     notchBottomBarController.jumpTo(index);
   }
 }

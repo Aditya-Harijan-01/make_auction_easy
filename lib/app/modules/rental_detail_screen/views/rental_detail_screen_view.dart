@@ -219,8 +219,8 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
             SizedBox(height: 14.h),
             _buildTenantCard(),
             SizedBox(height: 14.h),
-            _buildPaymentCard(),
-            SizedBox(height: 14.h),
+            // _buildPaymentCard(),
+            // SizedBox(height: 14.h),
             _buildNoteCard(),
             SizedBox(height: 14.h),
             _buildDescriptionCard(property),
@@ -475,8 +475,8 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionSubtitle('Payment method'),
-          SizedBox(height: 10.h),
+          // _sectionSubtitle('Payment method'),
+          // SizedBox(height: 10.h),
           Wrap(
             spacing: 10.w,
             runSpacing: 10.h,
