@@ -6,6 +6,8 @@ import '../modules/auction_screen/bindings/auction_screen_binding.dart';
 import '../modules/auction_screen/views/auction_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/login_page/bindings/login_page_binding.dart';
+import '../modules/login_page/views/login_page_view.dart';
 import '../modules/rental_detail_screen/bindings/rental_detail_screen_binding.dart';
 import '../modules/rental_detail_screen/views/rental_detail_screen_view.dart';
 import '../modules/rental_screen/bindings/rental_screen_binding.dart';
@@ -18,7 +20,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.LOGIN_PAGE;
 
   static final routes = [
     GetPage(
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.RENTAL_DETAIL_SCREEN,
       page: () => const RentalDetailScreenView(),
       binding: RentalDetailScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN_PAGE,
+      page: () => const LoginPageView(),
+      binding: LoginPageBinding(),
     ),
   ];
 }
