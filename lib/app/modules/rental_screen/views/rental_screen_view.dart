@@ -175,7 +175,7 @@ class RentalCard extends StatelessWidget {
         Get.toNamed(Routes.RENTAL_DETAIL_SCREEN, arguments: property.toMap());
       },
       child: Container(
-        height: 260.h,
+        height: 180.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
           image: DecorationImage(
@@ -218,60 +218,98 @@ class RentalCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  property.title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  property.location,
-                  style: TextStyle(color: Colors.white70, fontSize: 13.sp),
-                ),
-              ),
-              SizedBox(height: 10.h),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '\$${property.monthlyRent}/month',
+                    property.title,
                     style: TextStyle(
-                      color: Colors.lightBlueAccent,
+                      color: Colors.white,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
-                      fontSize: 14.sp,
                     ),
                   ),
-                  const Spacer(),
-                  Icon(Icons.bed, color: Colors.white70, size: 16.sp),
-                  SizedBox(width: 4.w),
                   Text(
-                    '${property.beds}',
-                    style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                    property.location,
+                    style: TextStyle(color: Colors.white70, fontSize: 13.sp),
                   ),
-                  SizedBox(width: 10.w),
-                  Icon(Icons.bathtub, color: Colors.white70, size: 16.sp),
-                  SizedBox(width: 4.w),
-                  Text(
-                    '${property.baths}',
-                    style: TextStyle(color: Colors.white, fontSize: 13.sp),
-                  ),
-                  SizedBox(width: 10.w),
-                  Icon(Icons.star, color: Colors.amber, size: 16.sp),
-                  SizedBox(width: 4.w),
-                  Text(
-                    property.rating.toStringAsFixed(1),
-                    style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                  Row(
+                    children: [
+                      Text(
+                        '\$${property.monthlyRent}/month',
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      const Spacer(),
+                      Icon(Icons.bed, color: Colors.white70, size: 16.sp),
+                      SizedBox(width: 4.w),
+                      Text(
+                        '${property.beds}',
+                        style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                      ),
+                      SizedBox(width: 10.w),
+                      Icon(Icons.bathtub, color: Colors.white70, size: 16.sp),
+                      SizedBox(width: 4.w),
+                      Text(
+                        '${property.baths}',
+                        style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                      ),
+                      SizedBox(width: 10.w),
+                      Icon(Icons.star, color: Colors.amber, size: 16.sp),
+                      SizedBox(width: 4.w),
+                      Text(
+                        property.rating.toStringAsFixed(1),
+                        style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                      ),
+                    ],
                   ),
                 ],
               ),
+              // SizedBox(height: 4.h),
+              // Align(
+              //   alignment: Alignment.bottomLeft,
+              //   child: Text(
+              //     property.location,
+              //     style: TextStyle(color: Colors.white70, fontSize: 13.sp),
+              //   ),
+              // ),
+              SizedBox(height: 10.h),
+              // Row(
+              //   children: [
+              //     Text(
+              //       '\$${property.monthlyRent}/month',
+              //       style: TextStyle(
+              //         color: Colors.lightBlueAccent,
+              //         fontWeight: FontWeight.bold,
+              //         fontSize: 14.sp,
+              //       ),
+              //     ),
+              //     const Spacer(),
+              //     Icon(Icons.bed, color: Colors.white70, size: 16.sp),
+              //     SizedBox(width: 4.w),
+              //     Text(
+              //       '${property.beds}',
+              //       style: TextStyle(color: Colors.white, fontSize: 13.sp),
+              //     ),
+              //     SizedBox(width: 10.w),
+              //     Icon(Icons.bathtub, color: Colors.white70, size: 16.sp),
+              //     SizedBox(width: 4.w),
+              //     Text(
+              //       '${property.baths}',
+              //       style: TextStyle(color: Colors.white, fontSize: 13.sp),
+              //     ),
+              //     SizedBox(width: 10.w),
+              //     Icon(Icons.star, color: Colors.amber, size: 16.sp),
+              //     SizedBox(width: 4.w),
+              //     Text(
+              //       property.rating.toStringAsFixed(1),
+              //       style: TextStyle(color: Colors.white, fontSize: 13.sp),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

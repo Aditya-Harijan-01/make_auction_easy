@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../data/models/rental_property.dart';
 import '../controllers/rental_detail_screen_controller.dart';
+import 'components/duration_details_card.dart';
+import 'components/move_in_widget.dart';
+import 'components/section_card.dart';
+import 'components/section_subtitle.dart';
+import 'components/tag.dart';
+import 'components/tenent_detail.dart';
 
 class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
   const RentalDetailScreenView({super.key});
@@ -24,7 +29,7 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
             children: [
               _buildHeaderImage(property),
               _buildTopBar(),
-              _buildAvailabilityBadge(),
+              // _buildAvailabilityBadge(),
             ],
           ),
           Expanded(child: Obx(() => _buildContent(property))),
@@ -53,25 +58,25 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
               ),
             ),
           ),
-          Positioned(
-            right: 16.w,
-            bottom: 20.h,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(14.r),
-              ),
-              child: Text(
-                '${controller.formatMoney(property.monthlyRent)}/month',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   right: 16.w,
+          //   bottom: 20.h,
+          //   child: Container(
+          //     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          //     decoration: BoxDecoration(
+          //       color: Colors.black54,
+          //       borderRadius: BorderRadius.circular(14.r),
+          //     ),
+          //     child: Text(
+          //       '${controller.formatMoney(property.monthlyRent)}/month',
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //         fontSize: 13.sp,
+          //         fontWeight: FontWeight.w700,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -107,40 +112,7 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
     );
   }
 
-  Widget _buildAvailabilityBadge() {
-    final RentalProperty property = controller.property;
-    final String availability = property.available
-        ? 'Available from ${controller.formatDate(property.availableFrom)}'
-        : 'Currently unavailable';
-
-    return Positioned(
-      left: 16.w,
-      bottom: 20.h,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: const Color(0xFF1E3A8A).withValues(alpha: 0.85),
-          borderRadius: BorderRadius.circular(14.r),
-          border: Border.all(color: Colors.blueAccent.withValues(alpha: 0.6)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.calendar_today, color: Colors.white, size: 14.sp),
-            SizedBox(width: 6.w),
-            Text(
-              availability,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  
 
   Widget _circleIcon(IconData icon, {Color color = Colors.white}) {
     return Container(
@@ -165,7 +137,7 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildTags(property),
+            buildTags(property),
             SizedBox(height: 12.h),
             Text(
               property.title,
@@ -208,28 +180,28 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
                 ),
               ],
             ),
-            SizedBox(height: 20.h),
-            _sectionTitle('Rental Process'),
-            SizedBox(height: 10.h),
-            _buildStepTimeline(),
-            SizedBox(height: 20.h),
-            _buildLeaseDurationCard(),
+            // SizedBox(height: 20.h),
+            // _sectionTitle('Rental Process'),
+            // SizedBox(height: 10.h),
+            // _buildStepTimeline(),
+            // SizedBox(height: 20.h),
+            // buildLeaseDurationCard(_cardBackground, controller),
             SizedBox(height: 14.h),
-            _buildMoveInCard(),
+            buildMoveInCard(_cardBackground, controller),
             SizedBox(height: 14.h),
-            _buildTenantCard(),
+            buildTenantCard(_cardBackground, controller),
             SizedBox(height: 14.h),
-            // _buildPaymentCard(),
+            // _buildPaymentCard(_cardBackground, controller),
             // SizedBox(height: 14.h),
-            _buildNoteCard(),
+            buildNoteCard(),
             SizedBox(height: 14.h),
             _buildDescriptionCard(property),
             SizedBox(height: 14.h),
             _buildAmenitiesCard(property),
-            SizedBox(height: 14.h),
-            _buildPriceSummaryCard(),
-            SizedBox(height: 10.h),
-            _buildTermsRow(),
+            // SizedBox(height: 14.h),
+            // _buildPriceSummaryCard(),
+            // SizedBox(height: 10.h),
+            // _buildTermsRow(),
             SizedBox(height: 14.h),
           ],
         ),
@@ -237,290 +209,13 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
     );
   }
 
-  Widget _buildTags(RentalProperty property) {
-    return Row(
-      children: [
-        _tagChip(
-          text: property.available ? 'Available' : 'Unavailable',
-          background: property.available ? Colors.green : Colors.red,
-        ),
-        SizedBox(width: 10.w),
-        _tagChip(text: property.type, background: const Color(0xFF1D4ED8)),
-      ],
-    );
-  }
-
-  Widget _tagChip({required String text, required Color background}) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-      decoration: BoxDecoration(
-        color: background.withValues(alpha: 0.24),
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: background.withValues(alpha: 0.65)),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStepTimeline() {
-    return Wrap(
-      spacing: 8.w,
-      runSpacing: 8.h,
-      children: const [
-        _StepBadge(order: 1, text: 'Lease'),
-        _StepBadge(order: 2, text: 'Move-in'),
-        _StepBadge(order: 3, text: 'Payment'),
-        _StepBadge(order: 4, text: 'Confirm'),
-      ],
-    );
-  }
-
-  Widget _buildLeaseDurationCard() {
-    return _sectionCard(
+  Widget buildNoteCard() {
+    return sectionCard(
+      _cardBackground,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionSubtitle('Lease duration'),
-          SizedBox(height: 10.h),
-          Wrap(
-            spacing: 10.w,
-            runSpacing: 10.h,
-            children: controller.leaseOptions
-                .map((months) {
-                  final bool selected =
-                      controller.selectedLeaseMonths.value == months;
-                  return GestureDetector(
-                    onTap: () => controller.selectLeaseMonths(months),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 220),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 14.w,
-                        vertical: 10.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: selected
-                            ? const Color(0xFF2563EB)
-                            : const Color(0xFF0F172A),
-                        borderRadius: BorderRadius.circular(16.r),
-                        border: Border.all(
-                          color: selected
-                              ? Colors.lightBlueAccent
-                              : Colors.white12,
-                        ),
-                      ),
-                      child: Text(
-                        '$months months',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  );
-                })
-                .toList(growable: false),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            controller.selectedLeaseMonths.value >= 12
-                ? 'Long lease benefit applied: ${controller.formatMoney(controller.leaseDiscount)} off due-now amount.'
-                : 'Choose 12+ months to unlock due-now discount.',
-            style: TextStyle(color: Colors.white60, fontSize: 12.sp),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMoveInCard() {
-    return _sectionCard(
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(
-              color: Colors.blue.withValues(alpha: 0.18),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Icon(
-              Icons.event,
-              color: Colors.lightBlueAccent,
-              size: 20.sp,
-            ),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _sectionSubtitle('Move-in date'),
-                SizedBox(height: 4.h),
-                Text(
-                  controller.moveInDateLabel,
-                  style: TextStyle(color: Colors.white70, fontSize: 13.sp),
-                ),
-              ],
-            ),
-          ),
-          TextButton(
-            onPressed: controller.pickMoveInDate,
-            child: const Text('Select'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTenantCard() {
-    return _sectionCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _sectionSubtitle('Tenants'),
-          SizedBox(height: 10.h),
-          _counterRow(
-            label: 'Adults',
-            value: controller.adults.value,
-            onMinus: controller.decrementAdults,
-            onPlus: controller.incrementAdults,
-            disableMinus: controller.adults.value <= 1,
-          ),
-          SizedBox(height: 10.h),
-          _counterRow(
-            label: 'Children',
-            value: controller.children.value,
-            onMinus: controller.decrementChildren,
-            onPlus: controller.incrementChildren,
-            disableMinus: controller.children.value <= 0,
-          ),
-          SizedBox(height: 8.h),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Include pets (+${controller.formatMoney(controller.petFee)}/month)',
-                  style: TextStyle(color: Colors.white70, fontSize: 12.sp),
-                ),
-              ),
-              Switch.adaptive(
-                value: controller.includePets.value,
-                activeThumbColor: Colors.blue,
-                activeTrackColor: Colors.blue.withValues(alpha: 0.45),
-                onChanged: controller.togglePets,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _counterRow({
-    required String label,
-    required int value,
-    required VoidCallback onMinus,
-    required VoidCallback onPlus,
-    required bool disableMinus,
-  }) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            label,
-            style: TextStyle(color: Colors.white, fontSize: 13.sp),
-          ),
-        ),
-        _miniButton(icon: Icons.remove, onTap: disableMinus ? null : onMinus),
-        SizedBox(width: 10.w),
-        Text(
-          '$value',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        SizedBox(width: 10.w),
-        _miniButton(icon: Icons.add, onTap: onPlus),
-      ],
-    );
-  }
-
-  Widget _miniButton({required IconData icon, required VoidCallback? onTap}) {
-    final bool disabled = onTap == null;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 30.w,
-        height: 30.w,
-        decoration: BoxDecoration(
-          color: disabled ? Colors.white10 : const Color(0xFF1D4ED8),
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        child: Icon(icon, color: Colors.white, size: 16.sp),
-      ),
-    );
-  }
-
-  Widget _buildPaymentCard() {
-    return _sectionCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // _sectionSubtitle('Payment method'),
-          // SizedBox(height: 10.h),
-          Wrap(
-            spacing: 10.w,
-            runSpacing: 10.h,
-            children: controller.paymentMethods
-                .map((method) {
-                  final bool selected =
-                      controller.selectedPaymentMethod.value == method;
-                  return GestureDetector(
-                    onTap: () => controller.setPaymentMethod(method),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 220),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 14.w,
-                        vertical: 10.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: selected
-                            ? Colors.blue.withValues(alpha: 0.25)
-                            : const Color(0xFF0F172A),
-                        borderRadius: BorderRadius.circular(14.r),
-                        border: Border.all(
-                          color: selected ? Colors.blueAccent : Colors.white12,
-                        ),
-                      ),
-                      child: Text(
-                        method,
-                        style: TextStyle(color: Colors.white, fontSize: 13.sp),
-                      ),
-                    ),
-                  );
-                })
-                .toList(growable: false),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNoteCard() {
-    return _sectionCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _sectionSubtitle('Special requests'),
+          sectionSubtitle('Special requests'),
           SizedBox(height: 10.h),
           TextField(
             controller: controller.noteController,
@@ -552,11 +247,12 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
   }
 
   Widget _buildDescriptionCard(RentalProperty property) {
-    return _sectionCard(
+    return sectionCard(
+      _cardBackground,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionSubtitle('Description'),
+          sectionSubtitle('Description'),
           SizedBox(height: 8.h),
           Text(
             property.description,
@@ -568,11 +264,12 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
   }
 
   Widget _buildAmenitiesCard(RentalProperty property) {
-    return _sectionCard(
+    return sectionCard(
+      _cardBackground,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionSubtitle('Amenities'),
+          sectionSubtitle('Amenities'),
           SizedBox(height: 10.h),
           Wrap(
             spacing: 8.w,
@@ -602,103 +299,10 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
     );
   }
 
-  Widget _buildPriceSummaryCard() {
-    return _sectionCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _sectionSubtitle('Price summary'),
-          SizedBox(height: 10.h),
-          _amountRow(
-            'Monthly rent',
-            controller.formatMoney(controller.monthlyBaseRent),
-          ),
-          _amountRow(
-            'Maintenance',
-            controller.formatMoney(controller.maintenanceFee),
-          ),
-          _amountRow('Pets fee', controller.formatMoney(controller.petFee)),
-          _amountRow(
-            'Security deposit',
-            controller.formatMoney(controller.securityDeposit),
-          ),
-          _amountRow(
-            'Processing fee',
-            controller.formatMoney(controller.processingFee),
-          ),
-          _amountRow(
-            'Lease discount',
-            '-${controller.formatMoney(controller.leaseDiscount)}',
-            valueColor: Colors.greenAccent,
-          ),
-          Divider(color: Colors.white24, height: 24.h),
-          _amountRow(
-            'Due now',
-            controller.formatMoney(controller.dueNow),
-            valueColor: Colors.lightBlueAccent,
-            isBold: true,
-          ),
-          SizedBox(height: 6.h),
-          Text(
-            'Monthly recurring amount: ${controller.formatMoney(controller.monthlyPayable)}',
-            style: TextStyle(color: Colors.white60, fontSize: 12.sp),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _amountRow(
-    String label,
-    String value, {
-    Color valueColor = Colors.white,
-    bool isBold = false,
-  }) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4.h),
-      child: Row(
-        children: [
-          Text(
-            label,
-            style: TextStyle(color: Colors.white70, fontSize: 13.sp),
-          ),
-          const Spacer(),
-          Text(
-            value,
-            style: TextStyle(
-              color: valueColor,
-              fontSize: 13.sp,
-              fontWeight: isBold ? FontWeight.w700 : FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTermsRow() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Checkbox(
-          value: controller.acceptedTerms.value,
-          onChanged: controller.toggleTerms,
-          activeColor: Colors.blue,
-          checkColor: Colors.white,
-        ),
-        Expanded(
-          child: Text(
-            'I agree to the rental agreement terms and refund policy.',
-            style: TextStyle(color: Colors.white70, fontSize: 12.sp),
-          ),
-        ),
-      ],
-    );
-  }
+  
 
   Widget _buildBottomButton() {
     final bool enabled = controller.canSubmit;
-
     return Container(
       padding: EdgeInsets.fromLTRB(16.w, 10.h, 16.w, 20.h),
       decoration: const BoxDecoration(color: _background),
@@ -741,87 +345,23 @@ class RentalDetailScreenView extends GetView<RentalDetailScreenController> {
     );
   }
 
-  Widget _sectionCard({required Widget child}) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(14.w),
-      decoration: BoxDecoration(
-        color: _cardBackground,
-        borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: child,
-    );
-  }
+  
 
-  Widget _sectionTitle(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 17.sp,
-        fontWeight: FontWeight.w700,
-      ),
-    );
-  }
+  // Widget _sectionTitle(String text) {
+  //   return Text(
+  //     text,
+  //     style: TextStyle(
+  //       color: Colors.white,
+  //       fontSize: 17.sp,
+  //       fontWeight: FontWeight.w700,
+  //     ),
+  //   );
+  // }
 
-  Widget _sectionSubtitle(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w700,
-      ),
-    );
-  }
+  
 }
 
-class _StepBadge extends StatelessWidget {
-  const _StepBadge({required this.order, required this.text});
 
-  final int order;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-      decoration: BoxDecoration(
-        color: const Color(0xFF111827),
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 20.w,
-            height: 20.w,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: Color(0xFF1D4ED8),
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              '$order',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 11.sp,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          SizedBox(width: 7.w),
-          Text(
-            text,
-            style: TextStyle(color: Colors.white70, fontSize: 12.sp),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _InfoCard extends StatelessWidget {
   const _InfoCard({required this.icon, required this.text});
