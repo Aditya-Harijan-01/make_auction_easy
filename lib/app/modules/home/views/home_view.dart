@@ -208,7 +208,7 @@ class HomeView extends GetView<HomeController> {
   // 🔹 Auction List
   Widget _buildAuctionList() {
     return SizedBox(
-      height: 300.h,
+      height: 200.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, _) => _auctionCard(),
@@ -221,7 +221,7 @@ class HomeView extends GetView<HomeController> {
   // 🔹 Auction Card
   Widget _auctionCard() {
     return Container(
-      width: 220.w,
+      width: 150.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.r),
         color: AppColors.cardBg,

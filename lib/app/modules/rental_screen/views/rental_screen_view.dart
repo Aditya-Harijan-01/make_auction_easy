@@ -104,21 +104,21 @@ class RentalScreenView extends GetView<RentalScreenController> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: controller.categories
-              .map((category) {
-                final bool selected =
-                    controller.selectedCategory.value == category;
-                return Padding(
-                  padding: EdgeInsets.only(right: 10.w),
-                  child: GestureDetector(
-                    onTap: () => controller.setCategory(category),
-                    child: FilterChipWidget(
-                      title: category,
-                      isSelected: selected,
-                    ),
+            .map((category) {
+              final bool selected =
+                controller.selectedCategory.value == category;
+              return Padding(
+                padding: EdgeInsets.only(right: 10.w),
+                child: GestureDetector(
+                  onTap: () => controller.setCategory(category),
+                  child: FilterChipWidget(
+                    title: category,
+                    isSelected: selected,
                   ),
-                );
-              })
-              .toList(growable: false),
+                ),
+              );
+            })
+            .toList(growable: false),
         ),
       ),
     );
@@ -175,16 +175,24 @@ class RentalCard extends StatelessWidget {
         Get.toNamed(Routes.RENTAL_DETAIL_SCREEN, arguments: property.toMap());
       },
       child: Container(
-        height: 180.h,
+        height: 160.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 154, 153, 153).withValues(alpha: 0.28),
+              blurRadius: 18,
+              spreadRadius: 1,
+              offset: const Offset(0, 10),
+            ),
+          ],
           image: DecorationImage(
             image: AssetImage(property.imagePath),
             fit: BoxFit.cover,
           ),
         ),
         child: Container(
-          padding: EdgeInsets.all(16.w),
+          padding: EdgeInsets.all(8.w),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.r),
             gradient: LinearGradient(
@@ -197,6 +205,7 @@ class RentalCard extends StatelessWidget {
             ),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
@@ -218,6 +227,7 @@ class RentalCard extends StatelessWidget {
                   ),
                 ],
               ),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -229,10 +239,15 @@ class RentalCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
                   Text(
                     property.location,
-                    style: TextStyle(color: Colors.white70, fontSize: 13.sp),
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 13.sp,
+                    ),
                   ),
+
                   Row(
                     children: [
                       Text(
@@ -268,48 +283,6 @@ class RentalCard extends StatelessWidget {
                   ),
                 ],
               ),
-              // SizedBox(height: 4.h),
-              // Align(
-              //   alignment: Alignment.bottomLeft,
-              //   child: Text(
-              //     property.location,
-              //     style: TextStyle(color: Colors.white70, fontSize: 13.sp),
-              //   ),
-              // ),
-              SizedBox(height: 10.h),
-              // Row(
-              //   children: [
-              //     Text(
-              //       '\$${property.monthlyRent}/month',
-              //       style: TextStyle(
-              //         color: Colors.lightBlueAccent,
-              //         fontWeight: FontWeight.bold,
-              //         fontSize: 14.sp,
-              //       ),
-              //     ),
-              //     const Spacer(),
-              //     Icon(Icons.bed, color: Colors.white70, size: 16.sp),
-              //     SizedBox(width: 4.w),
-              //     Text(
-              //       '${property.beds}',
-              //       style: TextStyle(color: Colors.white, fontSize: 13.sp),
-              //     ),
-              //     SizedBox(width: 10.w),
-              //     Icon(Icons.bathtub, color: Colors.white70, size: 16.sp),
-              //     SizedBox(width: 4.w),
-              //     Text(
-              //       '${property.baths}',
-              //       style: TextStyle(color: Colors.white, fontSize: 13.sp),
-              //     ),
-              //     SizedBox(width: 10.w),
-              //     Icon(Icons.star, color: Colors.amber, size: 16.sp),
-              //     SizedBox(width: 4.w),
-              //     Text(
-              //       property.rating.toStringAsFixed(1),
-              //       style: TextStyle(color: Colors.white, fontSize: 13.sp),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),
